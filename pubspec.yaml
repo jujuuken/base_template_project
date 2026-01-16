@@ -16,7 +16,6 @@ dependencies:
   bloc_concurrency: ^0.3.0
   fpdart: ^1.2.0
   get_it: ^9.2.0
-  equatable: ^2.0.8
   freezed_annotation: ^3.1.0
   # Navigation & Network
   go_router: ^17.0.1

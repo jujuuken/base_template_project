@@ -14,7 +14,7 @@ mixin LoginAction {
       return;
     }
 
-    final param = AuthParam(email: email, password: password);
+    final param = LoginParam(email: email, password: password);
     context.read<AuthBloc>().add(AuthEvent.loginRequest(param));
   }
 

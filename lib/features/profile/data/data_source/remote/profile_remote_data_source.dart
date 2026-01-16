@@ -18,7 +18,7 @@ class ProfileRemoteDataSourceImpl with ApiHandler implements ProfileRemoteDataSo
   @override
   TaskEither<Failure, ProfileModel> get(ProfileParam param) {
     return result<ProfileModel>(
-      call: () => api.get(EndPoints.profile),
+      call: () => api.get(EndPoints.profile, cancelToken: param.cancelToken),
       fromJsonT: (json) => ProfileModel.fromJson(json),
       defaultValue: ProfileModel.empty,
     );
@@ -26,6 +26,6 @@ class ProfileRemoteDataSourceImpl with ApiHandler implements ProfileRemoteDataSo
 
   @override
   TaskEither<Failure, Unit> update(ProfileParam param) {
-    return unitResult(call: () => api.put(EndPoints.profile));
+    return unitResult(call: () => api.put(EndPoints.profile, cancelToken: param.cancelToken));
   }
 }

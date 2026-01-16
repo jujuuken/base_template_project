@@ -53,13 +53,21 @@ class _LoginScreenState extends State<LoginScreen> with LoginAction {
           authFailure: (message) {
             Navigator.of(context).pop(); // Dismiss loading dialog
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Login Failed: $message')),
+              SnackBar(
+                duration: Duration(milliseconds: 150),
+                content: Text('Login Failed: $message'),
+                backgroundColor: Colors.redAccent,
+              ),
             );
           },
           authenticated: () {
             Navigator.of(context).pop(); // Dismiss loading dialog
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Login Successful!')),
+              const SnackBar(
+                duration: Duration(milliseconds: 150),
+                content: Text('Login Successful!'),
+                backgroundColor: Colors.green,
+              ),
             );
             // TODO: Navigate to home screen or dashboard
           },

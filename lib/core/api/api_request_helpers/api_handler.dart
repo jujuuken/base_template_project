@@ -89,6 +89,6 @@ mixin ApiHandler {
 
   Failure handleError(Object error, StackTrace stackTrace) {
     if (error is Failure) return error;
-    return ServerFailure(error: error, stacktrace: stackTrace);
+    return ServerFailure(error: error, stacktrace: stackTrace, message: 'Terjadi kesalahan pada server');
   }
 }

@@ -13,11 +13,11 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
   @override
   TaskEither<Failure, ProfileEntity> get(ProfileParam param) {
-    throw UnimplementedError();
+    return rds.get(param).map((model) => model.toEntity());
   }
 
   @override
   TaskEither<Failure, Unit> update(ProfileParam param) {
-    throw UnimplementedError();
+    return rds.update(param);
   }
 }

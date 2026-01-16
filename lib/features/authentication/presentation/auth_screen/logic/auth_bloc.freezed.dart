@@ -55,13 +55,14 @@ extension AuthEventPatterns on AuthEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _LoginRequest value)?  loginRequest,TResult Function( _RegisterRequest value)?  registerRequest,TResult Function( _LogoutRequest value)?  logoutRequest,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _LoginRequest value)?  loginRequest,TResult Function( _RegisterRequest value)?  registerRequest,TResult Function( _LogoutRequest value)?  logoutRequest,TResult Function( _CancelRequest value)?  cancelRequest,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _LoginRequest() when loginRequest != null:
 return loginRequest(_that);case _RegisterRequest() when registerRequest != null:
 return registerRequest(_that);case _LogoutRequest() when logoutRequest != null:
-return logoutRequest(_that);case _:
+return logoutRequest(_that);case _CancelRequest() when cancelRequest != null:
+return cancelRequest(_that);case _:
   return orElse();
 
 }
@@ -79,13 +80,14 @@ return logoutRequest(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _LoginRequest value)  loginRequest,required TResult Function( _RegisterRequest value)  registerRequest,required TResult Function( _LogoutRequest value)  logoutRequest,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _LoginRequest value)  loginRequest,required TResult Function( _RegisterRequest value)  registerRequest,required TResult Function( _LogoutRequest value)  logoutRequest,required TResult Function( _CancelRequest value)  cancelRequest,}){
 final _that = this;
 switch (_that) {
 case _LoginRequest():
 return loginRequest(_that);case _RegisterRequest():
 return registerRequest(_that);case _LogoutRequest():
-return logoutRequest(_that);case _:
+return logoutRequest(_that);case _CancelRequest():
+return cancelRequest(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -102,13 +104,14 @@ return logoutRequest(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _LoginRequest value)?  loginRequest,TResult? Function( _RegisterRequest value)?  registerRequest,TResult? Function( _LogoutRequest value)?  logoutRequest,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _LoginRequest value)?  loginRequest,TResult? Function( _RegisterRequest value)?  registerRequest,TResult? Function( _LogoutRequest value)?  logoutRequest,TResult? Function( _CancelRequest value)?  cancelRequest,}){
 final _that = this;
 switch (_that) {
 case _LoginRequest() when loginRequest != null:
 return loginRequest(_that);case _RegisterRequest() when registerRequest != null:
 return registerRequest(_that);case _LogoutRequest() when logoutRequest != null:
-return logoutRequest(_that);case _:
+return logoutRequest(_that);case _CancelRequest() when cancelRequest != null:
+return cancelRequest(_that);case _:
   return null;
 
 }
@@ -125,12 +128,13 @@ return logoutRequest(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( AuthParam param)?  loginRequest,TResult Function( AuthParam param)?  registerRequest,TResult Function()?  logoutRequest,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( LoginParam param)?  loginRequest,TResult Function( RegisterParam param)?  registerRequest,TResult Function()?  logoutRequest,TResult Function()?  cancelRequest,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _LoginRequest() when loginRequest != null:
 return loginRequest(_that.param);case _RegisterRequest() when registerRequest != null:
 return registerRequest(_that.param);case _LogoutRequest() when logoutRequest != null:
-return logoutRequest();case _:
+return logoutRequest();case _CancelRequest() when cancelRequest != null:
+return cancelRequest();case _:
   return orElse();
 
 }
@@ -148,12 +152,13 @@ return logoutRequest();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( AuthParam param)  loginRequest,required TResult Function( AuthParam param)  registerRequest,required TResult Function()  logoutRequest,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( LoginParam param)  loginRequest,required TResult Function( RegisterParam param)  registerRequest,required TResult Function()  logoutRequest,required TResult Function()  cancelRequest,}) {final _that = this;
 switch (_that) {
 case _LoginRequest():
 return loginRequest(_that.param);case _RegisterRequest():
 return registerRequest(_that.param);case _LogoutRequest():
-return logoutRequest();case _:
+return logoutRequest();case _CancelRequest():
+return cancelRequest();case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -170,12 +175,13 @@ return logoutRequest();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( AuthParam param)?  loginRequest,TResult? Function( AuthParam param)?  registerRequest,TResult? Function()?  logoutRequest,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( LoginParam param)?  loginRequest,TResult? Function( RegisterParam param)?  registerRequest,TResult? Function()?  logoutRequest,TResult? Function()?  cancelRequest,}) {final _that = this;
 switch (_that) {
 case _LoginRequest() when loginRequest != null:
 return loginRequest(_that.param);case _RegisterRequest() when registerRequest != null:
 return registerRequest(_that.param);case _LogoutRequest() when logoutRequest != null:
-return logoutRequest();case _:
+return logoutRequest();case _CancelRequest() when cancelRequest != null:
+return cancelRequest();case _:
   return null;
 
 }
@@ -190,7 +196,7 @@ class _LoginRequest implements AuthEvent {
   const _LoginRequest(this.param);
   
 
- final  AuthParam param;
+ final  LoginParam param;
 
 /// Create a copy of AuthEvent
 /// with the given fields replaced by the non-null parameter values.
@@ -222,11 +228,11 @@ abstract mixin class _$LoginRequestCopyWith<$Res> implements $AuthEventCopyWith<
   factory _$LoginRequestCopyWith(_LoginRequest value, $Res Function(_LoginRequest) _then) = __$LoginRequestCopyWithImpl;
 @useResult
 $Res call({
- AuthParam param
+ LoginParam param
 });
 
 
-
+$LoginParamCopyWith<$Res> get param;
 
 }
 /// @nodoc
@@ -242,11 +248,20 @@ class __$LoginRequestCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') $Res call({Object? param = null,}) {
   return _then(_LoginRequest(
 null == param ? _self.param : param // ignore: cast_nullable_to_non_nullable
-as AuthParam,
+as LoginParam,
   ));
 }
 
-
+/// Create a copy of AuthEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LoginParamCopyWith<$Res> get param {
+  
+  return $LoginParamCopyWith<$Res>(_self.param, (value) {
+    return _then(_self.copyWith(param: value));
+  });
+}
 }
 
 /// @nodoc
@@ -256,7 +271,7 @@ class _RegisterRequest implements AuthEvent {
   const _RegisterRequest(this.param);
   
 
- final  AuthParam param;
+ final  RegisterParam param;
 
 /// Create a copy of AuthEvent
 /// with the given fields replaced by the non-null parameter values.
@@ -288,11 +303,11 @@ abstract mixin class _$RegisterRequestCopyWith<$Res> implements $AuthEventCopyWi
   factory _$RegisterRequestCopyWith(_RegisterRequest value, $Res Function(_RegisterRequest) _then) = __$RegisterRequestCopyWithImpl;
 @useResult
 $Res call({
- AuthParam param
+ RegisterParam param
 });
 
 
-
+$RegisterParamCopyWith<$Res> get param;
 
 }
 /// @nodoc
@@ -308,11 +323,20 @@ class __$RegisterRequestCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') $Res call({Object? param = null,}) {
   return _then(_RegisterRequest(
 null == param ? _self.param : param // ignore: cast_nullable_to_non_nullable
-as AuthParam,
+as RegisterParam,
   ));
 }
 
-
+/// Create a copy of AuthEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$RegisterParamCopyWith<$Res> get param {
+  
+  return $RegisterParamCopyWith<$Res>(_self.param, (value) {
+    return _then(_self.copyWith(param: value));
+  });
+}
 }
 
 /// @nodoc
@@ -339,6 +363,38 @@ int get hashCode => runtimeType.hashCode;
 @override
 String toString() {
   return 'AuthEvent.logoutRequest()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class _CancelRequest implements AuthEvent {
+  const _CancelRequest();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CancelRequest);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'AuthEvent.cancelRequest()';
 }
 
 

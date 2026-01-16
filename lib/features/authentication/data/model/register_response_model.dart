@@ -7,7 +7,7 @@ part 'register_response_model.freezed.dart';
 part 'register_response_model.g.dart';
 
 @freezed
-abstract class RegisterResponseModel with _$RegisterResponseModel {
+sealed class RegisterResponseModel with _$RegisterResponseModel {
   const RegisterResponseModel._();
 
   const factory RegisterResponseModel({

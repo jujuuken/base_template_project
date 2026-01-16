@@ -1,8 +1,6 @@
-import 'package:equatable/equatable.dart';
-
 import '../../error_handling/failures/failure.dart';
 
-class GlobalResponse<T> extends Equatable {
+class GlobalResponse<T> {
   final String? status;
   final String? message;
   final T? data;
@@ -39,7 +37,4 @@ class GlobalResponse<T> extends Equatable {
       throw MappingFailure(error: error, stacktrace: stackTrace);
     }
   }
-
-  @override
-  List<Object?> get props => [status, message, data];
 }

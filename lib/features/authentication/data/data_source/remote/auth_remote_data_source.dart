@@ -23,9 +23,10 @@ class AuthRemoteDataSourceImpl with ApiHandler implements AuthRemoteDataSource {
       call: () => api.post(
         EndPoints.login,
         body: {
-          'userName': param.email,
-          'userPassword': param.password,
+          'userName': param.login?.email,
+          'userPassword': param.login?.password,
         },
+        cancelToken: param.cancelToken,
       ),
       fromJsonT: (json) => LoginResponseModel.fromJson(json),
       defaultValue: LoginResponseModel.empty,
@@ -35,7 +36,7 @@ class AuthRemoteDataSourceImpl with ApiHandler implements AuthRemoteDataSource {
   @override
   TaskEither<Failure, RegisterResponseModel> register(AuthParam param) {
     return result<RegisterResponseModel>(
-      call: () => api.get(EndPoints.register),
+      call: () => api.get(EndPoints.register, cancelToken: param.cancelToken),
       fromJsonT: (json) => RegisterResponseModel.fromJson(json),
       defaultValue: RegisterResponseModel.empty,
     );

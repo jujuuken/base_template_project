@@ -1,6 +1,7 @@
-import 'package:equatable/equatable.dart';
+import 'package:dio/dio.dart';
 
-class ProfileParam extends Equatable {
-  @override
-  List<Object?> get props => [];
+class ProfileParam {
+  final CancelToken? cancelToken;
+
+  const ProfileParam({this.cancelToken});
 }

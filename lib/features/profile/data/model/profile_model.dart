@@ -13,4 +13,6 @@ class ProfileModel extends ProfileEntity {
   }
   
   static const empty = ProfileModel(fullName: '');
+
+  ProfileEntity toEntity() => ProfileEntity(fullName: fullName);
 }

@@ -1,13 +1,11 @@
 part of 'failure.dart';
 
-class ServerFailure<T> extends Failures<T> {
+class ServerFailure<T> extends Failure {
   ServerFailure({
     StackTrace? stacktrace,
     required Object error,
     super.message = '',
     super.statusCode,
-    super.apiStatus,
-    super.validationErrors,
   }) {
     AppLogger.error(this, stacktrace: stacktrace ?? StackTrace.current);
   }
@@ -20,7 +18,4 @@ class ServerFailure<T> extends Failures<T> {
   }) {
     AppLogger.error(this, stacktrace: stacktrace ?? StackTrace.current);
   }
-
-  @override
-  List<Object?> get props => [message, statusCode, apiStatus, validationErrors];
 }

@@ -9,6 +9,7 @@ abstract class ApiConsumer {
     Map<String, dynamic>? queryParameters,
     T Function(Map<String, dynamic>)? errorFromJsonT,
     ResponseType? responseType,
+    CancelToken? cancelToken,
   });
 
   Future<Response> post<T>(
@@ -18,6 +19,7 @@ abstract class ApiConsumer {
     bool formDataIsEnabled = false,
     T Function(Map<String, dynamic>)? errorFromJsonT,
     ResponseType? responseType,
+    CancelToken? cancelToken,
   });
 
   Future<Response> put<T>(
@@ -26,6 +28,7 @@ abstract class ApiConsumer {
     Map<String, dynamic>? queryParameters,
     T Function(Map<String, dynamic>)? errorFromJsonT,
     ResponseType? responseType,
+    CancelToken? cancelToken,
   });
 
   Future<Response> delete<T>(
@@ -34,6 +37,7 @@ abstract class ApiConsumer {
     Map<String, dynamic>? queryParameters,
     T Function(Map<String, dynamic>)? errorFromJsonT,
     ResponseType? responseType,
+    CancelToken? cancelToken,
   });
 
   void setDioOptions();

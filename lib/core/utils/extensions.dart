@@ -37,11 +37,11 @@ extension TransactionStatusX on TransactionStatus {
 extension StatusExtension on dynamic {
   String get _asString => '$this';
 
-  bool get isApproved => _asString == "2";
+  bool get isApproved => _asString == '2';
 
-  bool get isPending => _asString == "1";
+  bool get isPending => _asString == '1';
 
-  bool get isRejected => _asString == "0";
+  bool get isRejected => _asString == '0';
 
   Color get toColor {
     if (isApproved) return Colors.green;

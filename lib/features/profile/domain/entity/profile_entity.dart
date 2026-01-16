@@ -1,12 +1,7 @@
-import 'package:equatable/equatable.dart';
-
-class ProfileEntity extends Equatable {
+class ProfileEntity {
   final String fullName;
 
   const ProfileEntity({required this.fullName});
-
-  @override
-  List<Object?> get props => [fullName];
 
   ProfileEntity copyWith({
     String? fullName,

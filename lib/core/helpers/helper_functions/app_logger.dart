@@ -26,7 +26,7 @@ sealed class AppLogger {
     return logger.warning(message, exception, stackTrace);
   }
 
-  static void error(Failures failure, {StackTrace? stacktrace}) {
+  static void error(Failure failure, {StackTrace? stacktrace}) {
     return logger.error(failure.message, failure, stacktrace);
   }
 

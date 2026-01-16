@@ -93,6 +93,7 @@ class DioConsumer implements ApiConsumer {
     Map<String, dynamic>? queryParameters,
     T Function(Map<String, dynamic>)? errorFromJsonT,
     ResponseType? responseType,
+    CancelToken? cancelToken,
   }) async {
     try {
       final response = await client.get(
@@ -100,6 +101,7 @@ class DioConsumer implements ApiConsumer {
         queryParameters: queryParameters,
         data: body,
         options: Options(responseType: responseType),
+        cancelToken: cancelToken,
       );
       return response;
     } on DioException catch (error, stacktrace) {
@@ -115,6 +117,7 @@ class DioConsumer implements ApiConsumer {
     bool formDataIsEnabled = false,
     T Function(Map<String, dynamic>)? errorFromJsonT,
     ResponseType? responseType,
+    CancelToken? cancelToken,
   }) async {
     try {
       final response = await client.post(
@@ -122,6 +125,7 @@ class DioConsumer implements ApiConsumer {
         queryParameters: queryParameters,
         data: formDataIsEnabled ? FormData.fromMap(body!) : body,
         options: Options(responseType: responseType),
+        cancelToken: cancelToken,
       );
       return response;
     } on DioException catch (error, stacktrace) {
@@ -136,6 +140,7 @@ class DioConsumer implements ApiConsumer {
     Map<String, dynamic>? queryParameters,
     T Function(Map<String, dynamic>)? errorFromJsonT,
     ResponseType? responseType,
+    CancelToken? cancelToken,
   }) async {
     try {
       final response = await client.put(
@@ -143,6 +148,7 @@ class DioConsumer implements ApiConsumer {
         queryParameters: queryParameters,
         data: body,
         options: Options(responseType: responseType),
+        cancelToken: cancelToken,
       );
       return response;
     } on DioException catch (error, stacktrace) {
@@ -157,6 +163,7 @@ class DioConsumer implements ApiConsumer {
     Map<String, dynamic>? queryParameters,
     T Function(Map<String, dynamic>)? errorFromJsonT,
     ResponseType? responseType,
+    CancelToken? cancelToken,
   }) async {
     try {
       final response = await client.delete(
@@ -164,6 +171,7 @@ class DioConsumer implements ApiConsumer {
         queryParameters: queryParameters,
         data: body,
         options: Options(responseType: responseType),
+        cancelToken: cancelToken,
       );
       return response;
     } on DioException catch (error, stacktrace) {

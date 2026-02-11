@@ -7,10 +7,12 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: LoginScreen(),
-      ),
+     return MaterialApp.router(
+      // theme: AppThemes.light(),
+      // darkTheme: AppThemes.dark(),
+      // themeMode: ThemeMode.light,
+      routerConfig: AppRouter.router,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

@@ -25,15 +25,18 @@ class AppScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(statusBarIconBrightness: Brightness.light),
-      child: SafeArea(
-        child: Scaffold(
-          body: body,
-          backgroundColor: backgroundColor,
-          appBar: appBar,
-          floatingActionButton: floatingActionButton,
-          floatingActionButtonLocation: floatingActionButtonLocation,
-          bottomNavigationBar: bottomNavigationBar,
-          resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+      child: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: SafeArea(
+          child: Scaffold(
+            body: body,
+            backgroundColor: backgroundColor,
+            appBar: appBar,
+            floatingActionButton: floatingActionButton,
+            floatingActionButtonLocation: floatingActionButtonLocation,
+            bottomNavigationBar: bottomNavigationBar,
+            resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+          ),
         ),
       ),
     );

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import '../route_names.dart';
+import '../app_routes.dart';
 
 // --- Placeholder Screens ---
 class DashboardScreen extends StatelessWidget {

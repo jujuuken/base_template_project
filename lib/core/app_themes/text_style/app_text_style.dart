@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-
-import '../colors/app_colors.dart';
-import 'font_weight_helper.dart';
+part of '../themes/app_themes.dart';
 
 sealed class AppTextStyle {
   /// Style Generator

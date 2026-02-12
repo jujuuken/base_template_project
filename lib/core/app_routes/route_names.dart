@@ -1,3 +1,5 @@
+part of 'app_routes.dart';
+
 class RouteNames {
   static const String splash = 'splash';
   static const String login = 'login';

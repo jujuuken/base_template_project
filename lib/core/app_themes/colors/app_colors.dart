@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of '../themes/app_themes.dart';
 
 sealed class AppColors {
   static const Color primary = zn900;

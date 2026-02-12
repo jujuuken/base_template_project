@@ -3,7 +3,7 @@ part of 'failure.dart';
 class LocalFailure extends Failure {
   LocalFailure({
     StackTrace? stacktrace,
-    required Object error,
+    Object? error,
     super.message = 'Something went wrong',
     super.statusCode,
   }) {

@@ -63,6 +63,7 @@ mixin ApiHandler {
         } else {
           throw ServerFailure(
             error: 'Operasi gagal dilakukan',
+            message: 'Operasi gagal dilakukan',
           );
         }
       },
@@ -80,6 +81,7 @@ mixin ApiHandler {
         } else {
           throw ServerFailure(
             error: 'Operasi gagal dilakukan',
+            message: 'Operasi gagal dilakukan',
           );
         }
       },

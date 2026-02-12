@@ -3,7 +3,7 @@ part of 'failure.dart';
 class ServerFailure<T> extends Failure {
   ServerFailure({
     StackTrace? stacktrace,
-    required Object error,
+    Object? error,
     super.message = '',
     super.statusCode,
   }) {

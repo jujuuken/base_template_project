@@ -9,6 +9,18 @@ sealed class AppTextStyle {
     return TextStyle(fontSize: size, color: AppColors.white, fontWeight: weight);
   }
 
+  static TextStyle get styleHeader => _textStyle(24, FontWeightHelper.semiBold);
+
+  static TextStyle get styleSubHeader => _textStyle(20, FontWeightHelper.medium);
+
+  static TextStyle get styleTitle => _textStyle(18, FontWeightHelper.medium);
+
+  static TextStyle get styleSubTitle => _textStyle(14, FontWeightHelper.regular);
+
+  static TextStyle get styleValue => _textStyle(12, FontWeightHelper.regular);
+
+  static TextStyle get styleSubValue => _textStyle(8, FontWeightHelper.light);
+
   /// Text Styles from size 12 to 24
   static TextStyle get style12Light => _textStyle(12, FontWeightHelper.light);
 

@@ -73,3 +73,31 @@ extension ContextX on BuildContext {
 
   bool get isMobile => mqWidth < 600;
 }
+
+extension LoadingExtension on BuildContext {
+  void showLoading() {
+    showDialog(
+      context: this,
+      barrierDismissible: false,
+      builder: (context) => PopScope(
+        canPop: false,
+        child: Center(
+          child: Container(
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: const CircularProgressIndicator(),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void hideLoading() {
+    if (Navigator.canPop(this)) {
+      Navigator.pop(this);
+    }
+  }
+}

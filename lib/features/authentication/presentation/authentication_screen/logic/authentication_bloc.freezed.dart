@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'auth_bloc.dart';
+part of 'authentication_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,7 +12,7 @@ part of 'auth_bloc.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$AuthEvent {
+mixin _$AuthenticationEvent {
 
 
 
@@ -20,7 +20,7 @@ mixin _$AuthEvent {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthEvent);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthenticationEvent);
 }
 
 
@@ -29,20 +29,20 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'AuthEvent()';
+  return 'AuthenticationEvent()';
 }
 
 
 }
 
 /// @nodoc
-class $AuthEventCopyWith<$Res>  {
-$AuthEventCopyWith(AuthEvent _, $Res Function(AuthEvent) __);
+class $AuthenticationEventCopyWith<$Res>  {
+$AuthenticationEventCopyWith(AuthenticationEvent _, $Res Function(AuthenticationEvent) __);
 }
 
 
-/// Adds pattern-matching-related methods to [AuthEvent].
-extension AuthEventPatterns on AuthEvent {
+/// Adds pattern-matching-related methods to [AuthenticationEvent].
+extension AuthenticationEventPatterns on AuthenticationEvent {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -192,13 +192,13 @@ return cancelRequest();case _:
 /// @nodoc
 
 
-class _LoginRequest implements AuthEvent {
+class _LoginRequest implements AuthenticationEvent {
   const _LoginRequest(this.param);
   
 
  final  LoginParam param;
 
-/// Create a copy of AuthEvent
+/// Create a copy of AuthenticationEvent
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -217,14 +217,14 @@ int get hashCode => Object.hash(runtimeType,param);
 
 @override
 String toString() {
-  return 'AuthEvent.loginRequest(param: $param)';
+  return 'AuthenticationEvent.loginRequest(param: $param)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$LoginRequestCopyWith<$Res> implements $AuthEventCopyWith<$Res> {
+abstract mixin class _$LoginRequestCopyWith<$Res> implements $AuthenticationEventCopyWith<$Res> {
   factory _$LoginRequestCopyWith(_LoginRequest value, $Res Function(_LoginRequest) _then) = __$LoginRequestCopyWithImpl;
 @useResult
 $Res call({
@@ -243,7 +243,7 @@ class __$LoginRequestCopyWithImpl<$Res>
   final _LoginRequest _self;
   final $Res Function(_LoginRequest) _then;
 
-/// Create a copy of AuthEvent
+/// Create a copy of AuthenticationEvent
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? param = null,}) {
   return _then(_LoginRequest(
@@ -252,7 +252,7 @@ as LoginParam,
   ));
 }
 
-/// Create a copy of AuthEvent
+/// Create a copy of AuthenticationEvent
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
@@ -267,13 +267,13 @@ $LoginParamCopyWith<$Res> get param {
 /// @nodoc
 
 
-class _RegisterRequest implements AuthEvent {
+class _RegisterRequest implements AuthenticationEvent {
   const _RegisterRequest(this.param);
   
 
  final  RegisterParam param;
 
-/// Create a copy of AuthEvent
+/// Create a copy of AuthenticationEvent
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -292,14 +292,14 @@ int get hashCode => Object.hash(runtimeType,param);
 
 @override
 String toString() {
-  return 'AuthEvent.registerRequest(param: $param)';
+  return 'AuthenticationEvent.registerRequest(param: $param)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$RegisterRequestCopyWith<$Res> implements $AuthEventCopyWith<$Res> {
+abstract mixin class _$RegisterRequestCopyWith<$Res> implements $AuthenticationEventCopyWith<$Res> {
   factory _$RegisterRequestCopyWith(_RegisterRequest value, $Res Function(_RegisterRequest) _then) = __$RegisterRequestCopyWithImpl;
 @useResult
 $Res call({
@@ -318,7 +318,7 @@ class __$RegisterRequestCopyWithImpl<$Res>
   final _RegisterRequest _self;
   final $Res Function(_RegisterRequest) _then;
 
-/// Create a copy of AuthEvent
+/// Create a copy of AuthenticationEvent
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? param = null,}) {
   return _then(_RegisterRequest(
@@ -327,7 +327,7 @@ as RegisterParam,
   ));
 }
 
-/// Create a copy of AuthEvent
+/// Create a copy of AuthenticationEvent
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
@@ -342,7 +342,7 @@ $RegisterParamCopyWith<$Res> get param {
 /// @nodoc
 
 
-class _LogoutRequest implements AuthEvent {
+class _LogoutRequest implements AuthenticationEvent {
   const _LogoutRequest();
   
 
@@ -362,7 +362,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'AuthEvent.logoutRequest()';
+  return 'AuthenticationEvent.logoutRequest()';
 }
 
 
@@ -374,7 +374,7 @@ String toString() {
 /// @nodoc
 
 
-class _CancelRequest implements AuthEvent {
+class _CancelRequest implements AuthenticationEvent {
   const _CancelRequest();
   
 
@@ -394,7 +394,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'AuthEvent.cancelRequest()';
+  return 'AuthenticationEvent.cancelRequest()';
 }
 
 
@@ -404,7 +404,7 @@ String toString() {
 
 
 /// @nodoc
-mixin _$AuthState {
+mixin _$AuthenticationState {
 
 
 
@@ -412,7 +412,7 @@ mixin _$AuthState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthenticationState);
 }
 
 
@@ -421,20 +421,20 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'AuthState()';
+  return 'AuthenticationState()';
 }
 
 
 }
 
 /// @nodoc
-class $AuthStateCopyWith<$Res>  {
-$AuthStateCopyWith(AuthState _, $Res Function(AuthState) __);
+class $AuthenticationStateCopyWith<$Res>  {
+$AuthenticationStateCopyWith(AuthenticationState _, $Res Function(AuthenticationState) __);
 }
 
 
-/// Adds pattern-matching-related methods to [AuthState].
-extension AuthStatePatterns on AuthState {
+/// Adds pattern-matching-related methods to [AuthenticationState].
+extension AuthenticationStatePatterns on AuthenticationState {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -602,7 +602,7 @@ return logoutFailure(_that.message);case _:
 /// @nodoc
 
 
-class _Initial implements AuthState {
+class _Initial implements AuthenticationState {
   const _Initial();
   
 
@@ -622,7 +622,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'AuthState.initial()';
+  return 'AuthenticationState.initial()';
 }
 
 
@@ -634,7 +634,7 @@ String toString() {
 /// @nodoc
 
 
-class _Authenticating implements AuthState {
+class _Authenticating implements AuthenticationState {
   const _Authenticating();
   
 
@@ -654,7 +654,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'AuthState.authenticating()';
+  return 'AuthenticationState.authenticating()';
 }
 
 
@@ -666,7 +666,7 @@ String toString() {
 /// @nodoc
 
 
-class _Authenticated implements AuthState {
+class _Authenticated implements AuthenticationState {
   const _Authenticated();
   
 
@@ -686,7 +686,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'AuthState.authenticated()';
+  return 'AuthenticationState.authenticated()';
 }
 
 
@@ -698,7 +698,7 @@ String toString() {
 /// @nodoc
 
 
-class _Unauthenticated implements AuthState {
+class _Unauthenticated implements AuthenticationState {
   const _Unauthenticated();
   
 
@@ -718,7 +718,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'AuthState.unauthenticated()';
+  return 'AuthenticationState.unauthenticated()';
 }
 
 
@@ -730,13 +730,13 @@ String toString() {
 /// @nodoc
 
 
-class _AuthFailure implements AuthState {
+class _AuthFailure implements AuthenticationState {
   const _AuthFailure(this.message);
   
 
  final  String message;
 
-/// Create a copy of AuthState
+/// Create a copy of AuthenticationState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -755,14 +755,14 @@ int get hashCode => Object.hash(runtimeType,message);
 
 @override
 String toString() {
-  return 'AuthState.authFailure(message: $message)';
+  return 'AuthenticationState.authFailure(message: $message)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$AuthFailureCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
+abstract mixin class _$AuthFailureCopyWith<$Res> implements $AuthenticationStateCopyWith<$Res> {
   factory _$AuthFailureCopyWith(_AuthFailure value, $Res Function(_AuthFailure) _then) = __$AuthFailureCopyWithImpl;
 @useResult
 $Res call({
@@ -781,7 +781,7 @@ class __$AuthFailureCopyWithImpl<$Res>
   final _AuthFailure _self;
   final $Res Function(_AuthFailure) _then;
 
-/// Create a copy of AuthState
+/// Create a copy of AuthenticationState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
   return _then(_AuthFailure(
@@ -796,7 +796,7 @@ as String,
 /// @nodoc
 
 
-class _LoggingOut implements AuthState {
+class _LoggingOut implements AuthenticationState {
   const _LoggingOut();
   
 
@@ -816,7 +816,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'AuthState.loggingOut()';
+  return 'AuthenticationState.loggingOut()';
 }
 
 
@@ -828,13 +828,13 @@ String toString() {
 /// @nodoc
 
 
-class _LogoutFailure implements AuthState {
+class _LogoutFailure implements AuthenticationState {
   const _LogoutFailure(this.message);
   
 
  final  String message;
 
-/// Create a copy of AuthState
+/// Create a copy of AuthenticationState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -853,14 +853,14 @@ int get hashCode => Object.hash(runtimeType,message);
 
 @override
 String toString() {
-  return 'AuthState.logoutFailure(message: $message)';
+  return 'AuthenticationState.logoutFailure(message: $message)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$LogoutFailureCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
+abstract mixin class _$LogoutFailureCopyWith<$Res> implements $AuthenticationStateCopyWith<$Res> {
   factory _$LogoutFailureCopyWith(_LogoutFailure value, $Res Function(_LogoutFailure) _then) = __$LogoutFailureCopyWithImpl;
 @useResult
 $Res call({
@@ -879,7 +879,7 @@ class __$LogoutFailureCopyWithImpl<$Res>
   final _LogoutFailure _self;
   final $Res Function(_LogoutFailure) _then;
 
-/// Create a copy of AuthState
+/// Create a copy of AuthenticationState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
   return _then(_LogoutFailure(

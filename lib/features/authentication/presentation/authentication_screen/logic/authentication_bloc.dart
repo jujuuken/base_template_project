@@ -8,34 +8,34 @@ import '../../../domain/use_case/login_use_case.dart';
 import '../../../domain/use_case/logout_use_case.dart';
 import '../../../domain/use_case/register_use_case.dart';
 
-part 'auth_event.dart';
+part 'authentication_event.dart';
 
-part 'auth_state.dart';
+part 'authentication_state.dart';
 
-part 'auth_bloc.freezed.dart';
+part 'authentication_bloc.freezed.dart';
 
-class AuthBloc extends Bloc<AuthEvent, AuthState> {
+class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
   final LoginUseCase login;
   final RegisterUseCase register;
   final LogoutUseCase logout;
   CancelToken? _cancelToken;
 
-  AuthBloc({
+  AuthenticationBloc({
     required this.login,
     required this.register,
     required this.logout,
-  }) : super(const AuthState.initial()) {
+  }) : super(const AuthenticationState.initial()) {
     on<_LoginRequest>(_login, transformer: droppable());
     on<_RegisterRequest>(_register, transformer: droppable());
     on<_LogoutRequest>(_logout, transformer: droppable());
     on<_CancelRequest>(_cancel);
   }
 
-  void _login(_LoginRequest event, Emitter<AuthState> emit) async {
+  void _login(_LoginRequest event, Emitter<AuthenticationState> emit) async {
     _cancelToken?.cancel('Request login dibatalkan');
     _cancelToken = CancelToken();
 
-    emit(const AuthState.authenticating());
+    emit(const AuthenticationState.authenticating());
 
     final param = AuthParam(login: event.param, cancelToken: _cancelToken);
 
@@ -43,18 +43,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     result.fold(
       (l) {
         if (l.statusCode != -2) {
-          emit(AuthState.authFailure(l.message));
+          emit(AuthenticationState.authFailure(l.message));
         }
       },
-      (r) => emit(AuthState.authenticated()),
+      (r) => emit(AuthenticationState.authenticated()),
     );
   }
 
-  void _register(_RegisterRequest event, Emitter<AuthState> emit) async {
+  void _register(_RegisterRequest event, Emitter<AuthenticationState> emit) async {
     _cancelToken?.cancel('Request register dibatalkan');
     _cancelToken = CancelToken();
 
-    emit(const AuthState.authenticating());
+    emit(const AuthenticationState.authenticating());
 
     final param = AuthParam(register: event.param, cancelToken: _cancelToken);
 
@@ -62,26 +62,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     result.fold(
       (l) {
         if (l.statusCode != -2) {
-          emit(AuthState.authFailure(l.message));
+          emit(AuthenticationState.authFailure(l.message));
         }
       },
-      (r) => emit(AuthState.authenticated()),
+      (r) => emit(AuthenticationState.authenticated()),
     );
   }
 
-  void _logout(_LogoutRequest event, Emitter<AuthState> emit) async {
-    emit(const AuthState.loggingOut());
+  void _logout(_LogoutRequest event, Emitter<AuthenticationState> emit) async {
+    emit(const AuthenticationState.loggingOut());
     final result = await logout.call(const AuthParam()).run();
     result.fold(
-      (l) => emit(AuthState.logoutFailure(l.message)),
-      (r) => emit(AuthState.unauthenticated()),
+      (l) => emit(AuthenticationState.logoutFailure(l.message)),
+      (r) => emit(AuthenticationState.unauthenticated()),
     );
   }
 
-  void _cancel(_CancelRequest event, Emitter<AuthState> emit) {
+  void _cancel(_CancelRequest event, Emitter<AuthenticationState> emit) {
     _cancelToken?.cancel('Request dibatalkan');
     _cancelToken = null;
-    emit(const AuthState.initial());
+    emit(const AuthenticationState.initial());
   }
 
   @override

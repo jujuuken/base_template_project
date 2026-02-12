@@ -4,7 +4,7 @@ import 'app.dart';
 import 'core/dependency/injection_container.dart';
 import 'core/helpers/secure_storage/secure_storage_helper.dart';
 import 'core/helpers/shared_preference/preference_helper.dart';
-import 'features/authentication/presentation/auth_screen/logic/auth_bloc.dart';
+import 'features/authentication/presentation/authentication_screen/logic/authentication_bloc.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => sl<AuthBloc>(),
+          create: (context) => sl<AuthenticationBloc>(),
         ),
       ],
       child: App(),

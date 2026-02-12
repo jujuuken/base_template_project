@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../domain/use_case/auth_param.dart';
-import '../../logic/auth_bloc.dart';
+import '../../logic/authentication_bloc.dart';
 import 'login_controller.dart';
 
 mixin LoginAction {
@@ -15,7 +15,7 @@ mixin LoginAction {
     }
 
     final param = LoginParam(email: email, password: password);
-    context.read<AuthBloc>().add(AuthEvent.loginRequest(param));
+    context.read<AuthenticationBloc>().add(AuthenticationEvent.loginRequest(param));
   }
 
   void _showError(BuildContext context, String message) {

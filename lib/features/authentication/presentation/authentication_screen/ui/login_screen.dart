@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/extension/extensions.dart';
 import '../../../../../core/widgets/app_scaffold.dart';
-import '../logic/auth_bloc.dart';
+import '../logic/authentication_bloc.dart';
 import 'login/login_action.dart';
 import 'login/login_controller.dart';
 import 'login/login_form_section.dart';
@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> with LoginAction {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc, AuthState>(
+    return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {
         state.maybeWhen(
           authenticating: () => showDialog(
@@ -90,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> with LoginAction {
                   child: const Text('Login'),
                 ),
                 32.gap,
-                BlocBuilder<AuthBloc, AuthState>(
+                BlocBuilder<AuthenticationBloc, AuthenticationState>(
                   buildWhen: (previous, current) => current.maybeWhen(
                     authenticating: () => true,
                     authFailure: (message) => true,

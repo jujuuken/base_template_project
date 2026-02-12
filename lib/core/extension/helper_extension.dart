@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of 'extensions.dart';
 
 extension NumGap on num {
   Widget get gap => SizedBox(width: toDouble(), height: toDouble());
@@ -49,18 +49,6 @@ extension StatusExtension on dynamic {
     if (isRejected) return Colors.red;
     return Colors.black;
   }
-}
-
-extension ContextX on BuildContext {
-  TextTheme get textTheme => Theme.of(this).textTheme;
-
-  ColorScheme get colorScheme => Theme.of(this).colorScheme;
-
-  double get mqWidth => MediaQuery.sizeOf(this).width;
-
-  double get mqHeight => MediaQuery.sizeOf(this).height;
-
-  bool get isMobile => mqWidth < 600;
 }
 
 extension StringX on String? {

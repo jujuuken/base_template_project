@@ -1,5 +1,5 @@
 sealed class EndPoints {
-  static const String baseUrl = 'http://36.91.222.106:3000';
+  static const String baseUrl = '';
   static const String refreshToken = '/refresh-token';
 
   /// AUTH

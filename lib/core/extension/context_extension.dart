@@ -47,7 +47,7 @@ extension SnackBarExtension on BuildContext {
   void showErrorSnackBar(String message) {
     showSnackBar(
       message: message,
-      backgroundColor: Colors.red[700],
+      backgroundColor: Colors.red[400],
       icon: Icons.error_outline,
     );
   }
@@ -56,8 +56,17 @@ extension SnackBarExtension on BuildContext {
   void showSuccessSnackBar(String message) {
     showSnackBar(
       message: message,
-      backgroundColor: Colors.green[700],
+      backgroundColor: Colors.green[400],
       icon: Icons.check_circle_outline,
+    );
+  }
+
+  //Shortcut untuk memanggil SnackBar Netral
+  void showNeutralSnackBar(String message) {
+    showSnackBar(
+      message: message,
+      backgroundColor: Colors.blue[400],
+      icon: Icons.lightbulb_circle,
     );
   }
 }

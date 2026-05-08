@@ -4,13 +4,17 @@ import '../../../../../core/api/api_request_helpers/api_consumer.dart';
 import '../../../../../core/api/api_request_helpers/api_handler.dart';
 import '../../../../../core/api/api_request_helpers/end_points.dart';
 import '../../../../../core/error_handling/failures/failure.dart';
-import '../../../domain/repository/auth_repository.dart';
 import '../../../domain/use_case/auth_param.dart';
 import '../../model/login_response_model.dart';
 import '../../model/register_response_model.dart';
 
-abstract class AuthRemoteDataSource
-    implements CanLogin<LoginResponseModel, AuthParam>, CanRegister<RegisterResponseModel, AuthParam>, CanLogout<AuthParam> {}
+abstract class AuthRemoteDataSource {
+  TaskEither<Failure, LoginResponseModel> login(AuthParam param);
+
+  TaskEither<Failure, RegisterResponseModel> register(AuthParam param);
+
+  TaskEither<Failure, Unit> logout(AuthParam param);
+}
 
 class AuthRemoteDataSourceImpl with ApiHandler implements AuthRemoteDataSource {
   final ApiConsumer api;

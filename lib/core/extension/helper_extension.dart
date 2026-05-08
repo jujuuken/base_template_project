@@ -54,3 +54,7 @@ extension StatusExtension on dynamic {
 extension StringX on String? {
   String get orDash => (this == null || this!.isEmpty || this == '') ? '-' : this!;
 }
+
+extension RoutePath on String {
+  String get toPath => '/$this';
+}

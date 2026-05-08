@@ -1,3 +1,4 @@
 export 'package:go_router/go_router.dart';
 
-part 'route_names.dart';
+export 'modules/tab_routes.dart';
+export '../../features/authentication/authentication_routes.dart';

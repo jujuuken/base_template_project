@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
+import '../extension/extensions.dart';
 import 'app_routes.dart';
-import 'modules/auth_routes.dart';
-import 'modules/tab_routes.dart';
 
 class AppRouter {
   static final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 
   static final GoRouter router = GoRouter(
     navigatorKey: rootNavigatorKey,
-    initialLocation: RouteNames.login.toPath,
+    initialLocation: AuthenticationRoutes.login.toPath,
     debugLogDiagnostics: true,
     routes: [
       TabRoutes.route,
 
-      ...AuthRoutes.routes,
+      ...AuthenticationRoutes.routes,
     ],
 
     errorBuilder: (context, state) => const Scaffold(

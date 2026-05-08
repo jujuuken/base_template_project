@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../extension/extensions.dart';
 import '../app_routes.dart';
 
 // --- Placeholder Screens ---
@@ -58,6 +59,10 @@ class TabWrapper extends StatelessWidget {
 
 class TabRoutes {
   // Kita gunakan StatefulShellRoute agar state halaman terjaga saat pindah tab
+
+  static const String dashboard = 'dashboard';
+  static const String profile = 'profile';
+  static const String menu = 'menu';
   static final RouteBase route = StatefulShellRoute.indexedStack(
     builder: (context, state, navigationShell) {
       return TabWrapper(navigationShell: navigationShell);
@@ -67,8 +72,8 @@ class TabRoutes {
       StatefulShellBranch(
         routes: [
           GoRoute(
-            path: RouteNames.dashboard.toPath,
-            name: RouteNames.dashboard,
+            path: dashboard.toPath,
+            name: dashboard,
             builder: (context, state) => const DashboardScreen(),
             routes: [
               // Sub-routes untuk Home bisa ditaruh di sini
@@ -82,8 +87,8 @@ class TabRoutes {
       StatefulShellBranch(
         routes: [
           GoRoute(
-            path: RouteNames.menu.toPath,
-            name: RouteNames.menu,
+            path: menu.toPath,
+            name: menu,
             builder: (context, state) => const MenuScreen(),
           ),
         ],
@@ -93,8 +98,8 @@ class TabRoutes {
       StatefulShellBranch(
         routes: [
           GoRoute(
-            path: RouteNames.profile.toPath,
-            name: RouteNames.profile,
+            path: profile.toPath,
+            name: profile,
             builder: (context, state) => const ProfileScreen(),
           ),
         ],

@@ -6,8 +6,8 @@ import 'package:talker_dio_logger/talker_dio_logger.dart';
 
 import '../../error_handling/error_handler/error_handler.dart';
 import '../../helpers/helper_functions/app_logger.dart';
-import '../../helpers/shared_preference/preference_helper.dart';
-import '../../helpers/shared_preference/preference_keys.dart';
+import '../../helpers/secure_storage/secure_storage_helper.dart';
+import '../../helpers/secure_storage/secure_storage_keys.dart';
 import '../interceptors/app_interceptor_logger.dart';
 import 'api_consumer.dart';
 import 'end_points.dart';
@@ -32,21 +32,17 @@ class DioConsumer implements ApiConsumer {
     }
 
     setDioOptions();
-    client.interceptors.add(RefreshTokenInterceptor(this));
-    client.interceptors.add(
+    client.interceptors.addAll([
       InterceptorsWrapper(
-        onRequest: (options, handler) {
+        onRequest: (options, handler) async {
           final publicEndpoints = [
             EndPoints.login,
             EndPoints.register,
-            EndPoints.forgotPassword,
           ];
-
-          bool isPublic = publicEndpoints.any((path) => options.path.contains(path));
-
+          bool isPublic = publicEndpoints.contains(options.path);
           if (!isPublic) {
-            final token = PrefHelper.get(PrefKeys.token);
-            if (token != null) {
+            final token = await SecureStorageHelper.get(StorageKeys.accessToken);
+            if (token != '') {
               options.headers['Authorization'] = 'Bearer $token';
             }
           }
@@ -54,7 +50,8 @@ class DioConsumer implements ApiConsumer {
           return handler.next(options);
         },
       ),
-    );
+      RefreshTokenInterceptor(this),
+    ]);
 
     if (kDebugMode) {
       client.interceptors.add(
@@ -66,7 +63,7 @@ class DioConsumer implements ApiConsumer {
           ),
         ),
       );
-      AppLogger.info('Bearer ${PrefHelper.get(PrefKeys.token)}');
+      AppLogger.info('Bearer ${SecureStorageHelper.get(StorageKeys.accessToken)}');
     }
   }
 
@@ -88,13 +85,13 @@ class DioConsumer implements ApiConsumer {
 
   @override
   Future<Response> get<T>(
-    String path, {
-    Map<String, dynamic>? body,
-    Map<String, dynamic>? queryParameters,
-    T Function(Map<String, dynamic>)? errorFromJsonT,
-    ResponseType? responseType,
-    CancelToken? cancelToken,
-  }) async {
+      String path, {
+        Map<String, dynamic>? body,
+        Map<String, dynamic>? queryParameters,
+        T Function(Map<String, dynamic>)? errorFromJsonT,
+        ResponseType? responseType,
+        CancelToken? cancelToken,
+      }) async {
     try {
       final response = await client.get(
         path,
@@ -111,14 +108,14 @@ class DioConsumer implements ApiConsumer {
 
   @override
   Future<Response> post<T>(
-    String path, {
-    Map<String, dynamic>? body,
-    Map<String, dynamic>? queryParameters,
-    bool formDataIsEnabled = false,
-    T Function(Map<String, dynamic>)? errorFromJsonT,
-    ResponseType? responseType,
-    CancelToken? cancelToken,
-  }) async {
+      String path, {
+        Map<String, dynamic>? body,
+        Map<String, dynamic>? queryParameters,
+        bool formDataIsEnabled = false,
+        T Function(Map<String, dynamic>)? errorFromJsonT,
+        ResponseType? responseType,
+        CancelToken? cancelToken,
+      }) async {
     try {
       final response = await client.post(
         path,
@@ -135,13 +132,13 @@ class DioConsumer implements ApiConsumer {
 
   @override
   Future<Response> put<T>(
-    String path, {
-    Map<String, dynamic>? body,
-    Map<String, dynamic>? queryParameters,
-    T Function(Map<String, dynamic>)? errorFromJsonT,
-    ResponseType? responseType,
-    CancelToken? cancelToken,
-  }) async {
+      String path, {
+        Map<String, dynamic>? body,
+        Map<String, dynamic>? queryParameters,
+        T Function(Map<String, dynamic>)? errorFromJsonT,
+        ResponseType? responseType,
+        CancelToken? cancelToken,
+      }) async {
     try {
       final response = await client.put(
         path,
@@ -158,13 +155,13 @@ class DioConsumer implements ApiConsumer {
 
   @override
   Future<Response> delete<T>(
-    String path, {
-    Map<String, dynamic>? body,
-    Map<String, dynamic>? queryParameters,
-    T Function(Map<String, dynamic>)? errorFromJsonT,
-    ResponseType? responseType,
-    CancelToken? cancelToken,
-  }) async {
+      String path, {
+        Map<String, dynamic>? body,
+        Map<String, dynamic>? queryParameters,
+        T Function(Map<String, dynamic>)? errorFromJsonT,
+        ResponseType? responseType,
+        CancelToken? cancelToken,
+      }) async {
     try {
       final response = await client.delete(
         path,

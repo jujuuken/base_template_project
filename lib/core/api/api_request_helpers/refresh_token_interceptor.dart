@@ -1,100 +1,112 @@
 import 'package:dio/dio.dart';
-
 import '../../../features/authentication/data/model/login_response_model.dart';
-import '../../helpers/shared_preference/preference_helper.dart';
-import '../../helpers/shared_preference/preference_keys.dart';
+import '../../helpers/secure_storage/secure_storage_helper.dart';
+import '../../helpers/secure_storage/secure_storage_keys.dart';
 import 'api_consumer.dart';
 import 'end_points.dart';
 
-class RefreshTokenInterceptor extends InterceptorsWrapper {
+class RefreshTokenInterceptor extends Interceptor {
   final ApiConsumer apiConsumer;
-
-  RefreshTokenInterceptor(this.apiConsumer);
-
   bool _isRefreshing = false;
 
-  final _requestsNeedRetry = <({RequestOptions options, ErrorInterceptorHandler handler})>[];
+  // Menggunakan list untuk menampung request yang gagal saat proses refresh berlangsung
+  final List<Map<String, dynamic>> _retryQueue = [];
+
+  RefreshTokenInterceptor(this.apiConsumer);
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     final response = err.response;
-    final authEndpoints = [EndPoints.login, EndPoints.refreshToken, EndPoints.register, EndPoints.forgotPassword];
+
+    // Pastikan bukan error dari endpoint auth itu sendiri untuk menghindari infinite loop
+    final authEndpoints = [
+      EndPoints.login,
+      EndPoints.refreshToken,
+      EndPoints.register,
+      EndPoints.forgotPassword
+    ];
+
     bool isAuthPath = authEndpoints.any((path) => err.requestOptions.path.contains(path));
-    if (response != null && response.statusCode == 401 && !isAuthPath) {
+
+    if (response?.statusCode == 401 && !isAuthPath) {
       if (!_isRefreshing) {
         _isRefreshing = true;
 
-        _requestsNeedRetry.add((
-          options: response.requestOptions,
-          handler: handler,
-        ));
-
         final isRefreshSuccess = await _refreshToken();
-
         _isRefreshing = false;
 
         if (isRefreshSuccess) {
-          for (var requestNeedRetry in _requestsNeedRetry) {
-            final retry = await apiConsumer.client.fetch(
-              requestNeedRetry.options,
-            );
-            requestNeedRetry.handler.resolve(retry);
+          // Ambil token baru
+          final newToken = await SecureStorageHelper.get(StorageKeys.accessToken);
+
+          // Jalankan request awal yang memicu error 401
+          _retryRequest(err.requestOptions, handler, newToken);
+
+          // Jalankan semua request lain yang mengantre
+          for (var retry in _retryQueue) {
+            _retryRequest(retry['options'], retry['handler'], newToken);
           }
-          _requestsNeedRetry.clear();
+          _retryQueue.clear();
+          return; // Selesai
         } else {
-          for (var request in _requestsNeedRetry) {
-            request.handler.reject(err);
+          // Jika refresh gagal, bersihkan antrean dan teruskan error
+          for (var retry in _retryQueue) {
+            retry['handler'].reject(err);
           }
-          _requestsNeedRetry.clear();
+          _retryQueue.clear();
+          return handler.next(err);
         }
       } else {
-        _requestsNeedRetry.add((
-          options: response.requestOptions,
-          handler: handler,
-        ));
+        // Jika sedang proses refresh, masukkan ke antrean
+        _retryQueue.add({
+          'options': err.requestOptions,
+          'handler': handler,
+        });
+        return;
       }
-    } else {
-      return handler.next(err);
+    }
+    return handler.next(err);
+  }
+
+  // Helper untuk melakukan request ulang dengan token baru
+  void _retryRequest(RequestOptions options, ErrorInterceptorHandler handler, String? token) async {
+    if (token != null && token.isNotEmpty) {
+      options.headers['Authorization'] = 'Bearer $token';
+    }
+
+    try {
+      final response = await apiConsumer.client.fetch(options);
+      handler.resolve(response);
+    } catch (e) {
+      if (e is DioException) {
+        handler.reject(e);
+      }
     }
   }
 
   Future<bool> _refreshToken() async {
     try {
+      final oldRefreshToken = await SecureStorageHelper.get(StorageKeys.refreshToken);
+      if (oldRefreshToken == null || oldRefreshToken.isEmpty) return false;
+
       final response = await apiConsumer.post(
         EndPoints.refreshToken,
-        body: {
-          'refreshToken': PrefHelper.get(PrefKeys.refreshToken),
-        },
+        body: {'refreshToken': oldRefreshToken},
       );
 
-      // Handle both GlobalResponse format and direct data format
       final dynamic data = response.data;
-      final Map<String, dynamic> jsonData;
+      final Map<String, dynamic> jsonData = (data is Map && data.containsKey('data'))
+          ? data['data']
+          : data;
 
-      if (data is Map<String, dynamic> && data.containsKey('data')) {
-        jsonData = data['data'] as Map<String, dynamic>;
-      } else if (data is Map<String, dynamic>) {
-        jsonData = data;
-      } else {
-        return false;
+      final loginResponse = LoginResponseModel.fromJson(jsonData);
+
+      await SecureStorageHelper.save(StorageKeys.accessToken, loginResponse.accessToken);
+      if (loginResponse.refreshToken.isNotEmpty) {
+        await SecureStorageHelper.save(StorageKeys.refreshToken, loginResponse.refreshToken);
       }
-
-      final loginResponseModel = LoginResponseModel.fromJson(jsonData);
-      await PrefHelper.save(
-        PrefKeys.token,
-        loginResponseModel.accessToken,
-      );
-
-      // Save new refresh token if provided
-      if (loginResponseModel.refreshToken.isNotEmpty) {
-        await PrefHelper.save(
-          PrefKeys.refreshToken,
-          loginResponseModel.refreshToken,
-        );
-      }
-
       return true;
-    } catch (error) {
+    } catch (e) {
       return false;
     }
   }
